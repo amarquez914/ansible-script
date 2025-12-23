@@ -1,0 +1,12 @@
+- name: install nginx to their latest version
+  tags: install, nginx
+  apt:
+    name: "nginx"
+    state: latest
+    update_cache: yes
+
+- name: Start nginx
+  tags: install, nginx
+  service:
+    name: nginx
+    state: started

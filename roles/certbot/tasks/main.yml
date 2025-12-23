@@ -1,0 +1,7 @@
+- name: Install certbot
+  tags: certbot, setup
+  pip:
+    name:
+      - certbot
+      - certbot-nginx
+    executable: pip3
