@@ -1,0 +1,2 @@
+NODEJS_VERSION: "24"
+ansible_distribution_release: "nodistro"

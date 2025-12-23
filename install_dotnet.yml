@@ -1,0 +1,29 @@
+---
+- name: Install dotnet runtime
+  hosts: all
+
+  tasks:
+
+  - name: Update apt cache
+    ansible.builtin.apt:
+      update_cache: yes
+
+  - name: Install dotnet dependencies
+    ansible.builtin.apt:
+      name:
+        - ca-certificates
+        - libc6
+        - libgcc-s1
+        - libgssapi-krb5-2
+        - libicu74
+        - libssl3t64
+        - libstdc++6
+        - tzdata
+        - zlib1g
+      state: present
+
+
+  - name: Install dotnet runtime
+    ansible.builtin.apt:
+      name: "aspnetcore-runtime-8.0"
+      state: latest

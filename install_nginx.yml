@@ -1,0 +1,13 @@
+---
+- name: Update all packages
+  hosts: all
+
+  tasks:
+
+  - name: install nginx to their latest version
+    ansible.builtin.apt:
+      name: "nginx"
+      state: latest
+      update_cache: yes
+
+# https://dev.to/lovestaco/sync-nginx-configs-with-ansible-19cl

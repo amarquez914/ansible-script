@@ -1,4 +1,6 @@
 webservers:
   hosts:
     ubuntu-finshark:
-      ansible_host: 68.183.150.230
+      ansible_host: 192.168.40.57
+  vars:
+    ansible_user: ansible
