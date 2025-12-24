@@ -1,8 +1,5 @@
-- name: Update apt cache
-  ansible.builtin.apt:
-    update_cache: yes
-
-- name: Update all packages to their latest version
+- name: Update cache and all packages to their latest version
   ansible.builtin.apt:
     name: "*"
     state: latest
+    update_cache: yes

@@ -3,5 +3,9 @@
   hosts: all
   roles:
     - base-install
+
+- name: install nodejs and dotnet 8.0 runtime
+  hosts: all
+  roles:
     - nodejs
-  
+    - dotnet

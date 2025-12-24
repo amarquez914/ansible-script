@@ -1,0 +1,55 @@
+- name: Install GPG
+  tags: mongo, install, setup
+  apt:
+    name: gnupg
+    state: present
+    update_cache: yes
+
+- name: Install the gpg key for mongodb LTS
+  tags: mongodb, install, setup
+  apt_key:
+    url: "https://www.mongodb.org/static/pgp/server-8.0.asc"
+    keyring: "/usr/share/keyrings/mongodb-server-8.0.gpg"
+    state: present
+
+- name: Install the MongoDB LTS repos to a list file
+  tags: mongodb, install, setup
+  apt_repository:
+    repo: "deb [ arch=amd64,arm64 signed-by=/usr/share/keyrings/mongodb-server-8.0.gpg ] https://repo.mongodb.org/apt/ubuntu {{ ansible_distribution_release }}/mongodb-org/8.0 multiverse"
+    state: present
+    filename: "mongodb-org-8.0"
+    update_cache: yes
+
+- name: Install MongoDB
+  tags: mongodb, install
+  apt:
+    name: mongodb-org
+    state: latest
+
+- name: Enable service mongod, and not touch the state
+  tags: mongodb, service, enable
+  service:
+    name: mongod
+    enabled: yes
+
+- name: Start service mongod, if not started
+  tags: mongodb, service, start
+  service:
+    name: mongod
+    state: started
+
+- name: Include virtualenv configuration
+  ansible.builtin.include_tasks: install_pymongo_virtualenv.yml
+
+- name: Create admin user
+  tags: admin, create, mongodb
+  vars:
+    ansible_python_interpreter: /opt/mongodb_venv/bin/python
+  community.mongodb.mongodb_user:
+    database: admin
+    name: "rootAdmin"
+    password: "passw01d"
+    roles: "root"
+
+
+# https://github.com/trfore/ansible-role-mongodb-install
