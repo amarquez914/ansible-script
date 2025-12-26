@@ -1,0 +1,5 @@
+- name: Install Ansible Roles on Controller Node
+  delegate_to: localhost
+  command: ansible-galaxy collection install microsoft.sql
+  register: galaxy_output
+  # changed_when: "'already installed' not in galaxy_output.stdout"
